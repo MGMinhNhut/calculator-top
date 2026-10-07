@@ -17,6 +17,7 @@ let firstNum = null;
 let operator = null;
 let secondNum = null;
 let op_cnt = 0;
+let result = false;
 
 function operate(a, operator, b){
     if(operator === "+"){
@@ -54,33 +55,73 @@ const screen_content = document.createElement("p");
 screen_content.textContent = "";
 
 one_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }
     screen_content.textContent += '1';
 });
 two_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }
     screen_content.textContent += '2';
 });
 three_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }    
     screen_content.textContent += '3';
 });
 four_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    } 
     screen_content.textContent += '4';
 });
 five_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }
     screen_content.textContent += '5';
 });
 six_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }
     screen_content.textContent += '6';
 });
 seven_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }
     screen_content.textContent += '7';
 });
 eight_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }
     screen_content.textContent += '8';
 });
 nine_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }
     screen_content.textContent += '9';
 });
 zero_btn.addEventListener("click", () => {
+    if(result){
+        newCalc();
+        result = false;
+    }
     screen_content.textContent += '0';
 });
 delete_btn.addEventListener("click", () =>{
@@ -89,26 +130,33 @@ delete_btn.addEventListener("click", () =>{
 ac_btn.addEventListener("click", () => {
     screen_content.textContent = "";
     op_cnt = 0;
+    result = false;
 
 });
 add_btn.addEventListener("click", () => {
+    result = false;
     screen_content.textContent += "+"
     pairCalc(screen_content.textContent);
 
 })
 subtract_btn.addEventListener("click", () => {
+    result = false;
     screen_content.textContent +="-"
     pairCalc(screen_content.textContent);
 })
 multiply_btn.addEventListener("click", () => {
+    result = false;
     screen_content.textContent += "x";
     pairCalc(screen_content.textContent);
 })
 divide_btn.addEventListener("click", () => {
+    result = false;
     screen_content.textContent +="/";
     pairCalc(screen_content.textContent);
 })
 equal_btn.addEventListener("click", () => {
+    op_cnt = 0;
+    result = true;
     resultCalc(screen_content.textContent);
 })
 
@@ -132,10 +180,26 @@ function resultCalc(string){
                 index = i;
             }
         }
-        firstNum = Number(stringCalc.substring(0, index));
-        secondNum = Number(stringCalc.substring(index + 1));
-        screen_content.textContent = operate(firstNum, operator, secondNum).toString();
+        if(stringCalc.substring(0, index) == "" || stringCalc.substring(index + 1) == ""){
+            screen_content.textContent = "Syntax Error!";
+        }
+        else{
+            firstNum = Number(stringCalc.substring(0, index));
+            secondNum = Number(stringCalc.substring(index + 1));
+            if(secondNum == 0 && operator == "/"){
+                screen_content.textContent = "Syntax Error!";   
+            }
+            else{
+                screen_content.textContent = operate(firstNum, operator, secondNum).toString();
+            }
+        }
+
     }
+}
+
+function newCalc(){
+    screen_content.textContent = "";
+    op_cnt = 0;   
 }
 
 const mainScreen = document.querySelector(".mainScreen");
