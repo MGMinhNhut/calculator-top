@@ -18,6 +18,7 @@ let operator = null;
 let secondNum = null;
 let op_cnt = 0;
 let result = false;
+let decimal_cnt = 0;
 
 function operate(a, operator, b){
     if(operator === "+"){
@@ -51,8 +52,18 @@ const subtract_btn = document.querySelector(".subtract");
 const multiply_btn = document.querySelector(".multiply");
 const divide_btn = document.querySelector(".divide");
 const equal_btn = document.querySelector(".equal");
+const decimal_btn = document.querySelector(".decimal");
 const screen_content = document.createElement("p");
+const keyboard_content = document.querySelector("input");
+screen_content.classList.add("screen_ctn");
 screen_content.textContent = "";
+
+decimal_btn.addEventListener("click", () =>{
+    if(decimal_cnt == 0){
+        screen_content.textContent += ".";
+        decimal_cnt++;
+    }
+})
 
 one_btn.addEventListener("click", () => {
     if(result){
@@ -61,6 +72,7 @@ one_btn.addEventListener("click", () => {
     }
     screen_content.textContent += '1';
 });
+
 two_btn.addEventListener("click", () => {
     if(result){
         newCalc();
@@ -131,31 +143,37 @@ ac_btn.addEventListener("click", () => {
     screen_content.textContent = "";
     op_cnt = 0;
     result = false;
+    decimal_cnt = 0;
 
 });
 add_btn.addEventListener("click", () => {
     result = false;
+    decimal_cnt = 0;
     screen_content.textContent += "+"
     pairCalc(screen_content.textContent);
 
 })
 subtract_btn.addEventListener("click", () => {
     result = false;
+    decimal_cnt = 0;
     screen_content.textContent +="-"
     pairCalc(screen_content.textContent);
 })
 multiply_btn.addEventListener("click", () => {
     result = false;
+    decimal_cnt = 0;
     screen_content.textContent += "x";
     pairCalc(screen_content.textContent);
 })
 divide_btn.addEventListener("click", () => {
     result = false;
+    decimal_cnt = 0;
     screen_content.textContent +="/";
     pairCalc(screen_content.textContent);
 })
 equal_btn.addEventListener("click", () => {
     op_cnt = 0;
+    decimal_cnt = 0;
     result = true;
     resultCalc(screen_content.textContent);
 })
